@@ -1,68 +1,36 @@
 msdeploy Cookbook
 =================
-TODO: Enter the cookbook description here.
-
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+This cookbook provides support for using MSDeploy inside Chef cookbooks
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+#### cookbooks
+- `webpi` - msdeploy needs webpi to install MSDeploy
 
-e.g.
-#### packages
-- `toaster` - msdeploy needs toaster to brown your bagel.
-
-Attributes
-----------
-TODO: List you cookbook attributes here.
-
-e.g.
-#### msdeploy::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['msdeploy']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
-
-Usage
 -----
-#### msdeploy::default
-TODO: Write usage instructions for each cookbook.
+#### msdeploy::install
+This recipe installs MSDeploy 3.0 via Web Platform Installer
 
 e.g.
-Just include `msdeploy` in your node's `run_list`:
+Just include `msdeploy::install` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[msdeploy]"
+    "recipe[msdeploy:install]"
   ]
 }
 ```
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+#### msdeploy_sync resource
+This resource allows you to sync two places (e.g. package and IIS site) using MSDeploy. 
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+There is only one action `:sync`.
+
+To run synchornisation you need to provide values for two attributes: `source` and `dest`. Both of them has the same format: `:provider => 'provider_path'`. 
+As provider you can pass any valid MSDeploy provider like `contentPath`, `package`, etc. `provider_path` must be valid path for given provider (e.g. path to zip package). If provider does not require path, pass `nil`.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Maciej T. Nowak
